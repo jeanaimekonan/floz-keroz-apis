@@ -4,7 +4,7 @@ Salut Jeune developpeuse. Je suis Bamishola LOKE. Un developpeur web full stack 
 
 ## Bienveunu sur notre application
 
-![Texte alternatif](doc/wireframes/dashboard.jpg)
+![Un apercu de l'application sur les different device](doc/mockup/mockup.png)
 
 ## Premier des chose a faire : cloner le projet
 
