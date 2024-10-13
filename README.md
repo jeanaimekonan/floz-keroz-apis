@@ -2,10 +2,9 @@
 
 Salut Jeune developpeuse. Je suis Bamishola LOKE. Un developpeur web full stack et developpeur mobile. Je suis egalement un hackeur et j'esaaie de mettre en place des service de securite au entreprise. J'ai un projet de grande envergure actuellement qui consiste a programme de zero un systeme d'exploitation aussi puissant que LINUX et Windows.
 
-
 ## Bienveunu sur notre application
-![Texte alternatif](chemin/vers/image)
 
+![Texte alternatif](doc/wireframes/dashboard.jpg)
 
 ## Premier des chose a faire : cloner le projet
 
