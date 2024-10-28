@@ -114,7 +114,7 @@ function SignIn() {
       </form>
       <div className="text-center">
       <Link to="/dashboard" className="forgot-password dark-link">Forgot password?</Link>
-      <p>Don’t have an account? <Link to="/dashboard" className="dark-link">Sign up</Link></p>
+      <p>Don’t have an account? <Link to="/signUp" className="dark-link">Sign up</Link></p>
       </div>
     </div>
   </div>
