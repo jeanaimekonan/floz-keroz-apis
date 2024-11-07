@@ -67,7 +67,7 @@ function SignUp() {
     <div className="signup">
       <div className="signup-container">
         <div className="text-center">
-          <p>Create an account on <span className="bold-text">Bee Finance</span></p>
+          <p>Create an account on <span className="bold-text">Flouz Keroz</span></p>
         </div>
         <div className="form-group">
           <button className="btn-fullwidth" onClick={() => navigate('/dashboard')}>
