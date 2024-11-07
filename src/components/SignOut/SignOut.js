@@ -7,7 +7,7 @@ function SignOut() {
     <div className="signin">
       <div className="signin-container">
         <div className="text-center">
-          <p>Thanks for using <span className="bold-text">Bee Finance</span></p>
+          <p>Thanks for using <span className="bold-text">Flouz Keroz</span></p>
           <p>Forgot anything? <Link to="/" className="dark-link">Go back to sign in</Link></p>
         </div>
       </div>

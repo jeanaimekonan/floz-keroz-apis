@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Incomes from './components/Incomes/Incomes';
 import Expenses from './components/Expenses/Expenses';
 import SignOut from './components/SignOut/SignOut';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import SignUp from './components/SignUp/SignUp';
 import './App.css';
 
@@ -39,6 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard" element={<Dashboard totalIncomes={totalIncomes} totalExpenses={totalExpenses} />} />
         <Route path="/incomes" element={<Incomes incomes={incomes} setIncomes={setIncomes} />} />
         <Route path="/expenses" element={<Expenses expenses={expenses} setExpenses={setExpenses} />} />
