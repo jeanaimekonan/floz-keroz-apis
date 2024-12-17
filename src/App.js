@@ -41,7 +41,11 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/dashboard" element={<Dashboard totalIncomes={totalIncomes} totalExpenses={totalExpenses} />} />
+        <Route 
+  path="/dashboard" 
+  element={<Dashboard totalIncomes={totalIncomes} totalExpenses={totalExpenses} expenses={expenses} />}
+/>
+
         <Route path="/incomes" element={<Incomes incomes={incomes} setIncomes={setIncomes} />} />
         <Route path="/expenses" element={<Expenses expenses={expenses} setExpenses={setExpenses} />} />
         <Route path="/signout" element={<SignOut />} />
