@@ -4,26 +4,21 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DonutChart = ({ expenses }) => {
-  // Regrouper les dépenses par catégorie
-  const categoryTotals = expenses.reduce((acc, expense) => {
-    const { category, amount } = expense;
-    acc[category] = (acc[category] || 0) + parseFloat(amount);
-    return acc;
-  }, {});
+const DonutChart = ({ data, title }) => {
+  // Palette de couleurs sobres et modernes
+  const colors = ["#A6AEBF", "#C5D3E8", "#D0E8C5", "#FFF8DE"];
+  const hoverColors = colors.map((color) => `${color}CC`); // Version transparente pour le hover
 
   // Préparer les données pour Chart.js
-  const data = {
-    labels: Object.keys(categoryTotals),
+  const chartData = {
+    labels: Object.keys(data),
     datasets: [
       {
-        data: Object.values(categoryTotals),
-        backgroundColor: [
-          "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"
-        ],
-        hoverBackgroundColor: [
-          "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"
-        ],
+        data: Object.values(data),
+        backgroundColor: colors,
+        hoverBackgroundColor: hoverColors,
+        borderWidth: 1,
+        borderColor: "#ffffff",
       },
     ],
   };
@@ -41,9 +36,13 @@ const DonutChart = ({ expenses }) => {
   };
 
   return (
-    <div style={{ width: "50%", margin: "auto" }}>
-      <h3>Répartition des Dépenses</h3>
-      <Doughnut data={data} options={options} />
+    <div style={{ width: "100%", maxWidth: "400px", margin: "0 auto", textAlign: "center" }}>
+      {/* Titre centré et en gras */}
+      <h4 style={{ fontWeight: "bold", marginBottom: "10px", color: "#495057", textAlign: "center" }}>
+        {title}
+      </h4>
+      {/* Diagramme Donut */}
+      <Doughnut data={chartData} options={options} />
     </div>
   );
 };

@@ -43,7 +43,14 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route 
   path="/dashboard" 
-  element={<Dashboard totalIncomes={totalIncomes} totalExpenses={totalExpenses} expenses={expenses} />}
+  element={
+    <Dashboard 
+      totalIncomes={totalIncomes} 
+      totalExpenses={totalExpenses} 
+      incomes={incomes} 
+      expenses={expenses} 
+    />
+  } 
 />
 
         <Route path="/incomes" element={<Incomes incomes={incomes} setIncomes={setIncomes} />} />

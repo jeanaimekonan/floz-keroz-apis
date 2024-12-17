@@ -1,21 +1,24 @@
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import SidebarNav from '../SidebarNav/SidebarNav';
-import BreadcrumbAndProfile from '../BreadcrumbAndProfile/BreadcrumbAndProfile';
-import InfoCard from '../InfoCard/InfoCard';
-import NewsCard from '../NewsCard/NewsCard';
-import DonutChart from './DonutChart';
-import './Dashboard.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import SidebarNav from "../SidebarNav/SidebarNav";
+import BreadcrumbAndProfile from "../BreadcrumbAndProfile/BreadcrumbAndProfile";
+import DonutChart from "./DonutChart";
+import "./Dashboard.css";
+import { motion } from "framer-motion";
 
-function Dashboard({ totalIncomes, totalExpenses, expenses }) {
-  const total = totalIncomes + totalExpenses;
+function Dashboard({ totalIncomes, totalExpenses, incomes, expenses }) {
+  // Regrouper les données par catégorie
+  const expenseData = expenses.reduce((acc, expense) => {
+    acc[expense.category] = (acc[expense.category] || 0) + parseFloat(expense.amount);
+    return acc;
+  }, {});
 
-  const handleReload = () => {
-    window.location.reload();
-  };
+  const incomeData = incomes.reduce((acc, income) => {
+    acc[income.category] = (acc[income.category] || 0) + parseFloat(income.amount);
+    return acc;
+  }, {});
+
+  const totalBalance = totalIncomes - totalExpenses;
 
   return (
     <Container fluid>
@@ -23,55 +26,52 @@ function Dashboard({ totalIncomes, totalExpenses, expenses }) {
         <Col md={2} className="sidebar">
           <SidebarNav />
         </Col>
-        <Col md={10} className="main-content main">
+        <Col md={10} className="main-content">
           <BreadcrumbAndProfile 
             username="Mr. French Pitbull" 
             role="Freelancer React Developer" 
-            pageTitle="Dashboard"
-            breadcrumbItems={[
-              { name: 'Dashboard', path: '/dashboard', active: true },
-            ]}
+            pageTitle="Dashboard" 
+            breadcrumbItems={[{ name: "Dashboard", path: "/dashboard", active: true }]}
           />
 
-          <Row className="mb-3">
+{/* Diagrammes Donut */}
+<Row className="my-4 text-center">
+  <Col md={6}>
+    <DonutChart data={expenseData} title="Répartition des Dépenses" />
+  </Col>
+  <Col md={6}>
+    <DonutChart data={incomeData} title="Répartition des Revenus" />
+  </Col>
+</Row>
+
+
+          {/* Soldes */}
+          <Row className="my-4">
             <Col md={4}>
-              <Button onClick={handleReload} className="secondary-button w-50">
-                <FontAwesomeIcon icon={faRotateRight} className="icon-left" />
-                Reload
-              </Button>
-            </Col>
-          </Row>
-
-          {/* Info Cards */}
-          <Row className="mb-3">
-            <Col md={6}>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <InfoCard title="Incomes" value={`$${totalIncomes}`} linkText="Add or manage Income" linkTo="/incomes" />
+              <motion.div whileHover={{ scale: 1.05 }} className="balance-card">
+                <Card className="shadow-sm text-center p-3 balance-card">
+                  <Card.Title>Total Revenus</Card.Title>
+                  <Card.Text className="balance-amount">${totalIncomes}</Card.Text>
+                </Card>
               </motion.div>
             </Col>
-            <Col md={6}>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <InfoCard title="Expenses" value={`$${totalExpenses}`} linkText="Add or manage Expenses" linkTo="/expenses" />
+            <Col md={4}>
+              <motion.div whileHover={{ scale: 1.05 }} className="balance-card">
+                <Card className="shadow-sm text-center p-3 balance-card">
+                  <Card.Title>Total Dépenses</Card.Title>
+                  <Card.Text className="balance-amount">${totalExpenses}</Card.Text>
+                </Card>
+              </motion.div>
+            </Col>
+            <Col md={4}>
+              <motion.div whileHover={{ scale: 1.05 }} className="balance-card">
+                <Card className={`shadow-sm text-center p-3 balance-card ${totalBalance >= 0 ? 'text-success' : 'text-danger'}`}>
+                  <Card.Title>Solde Total</Card.Title>
+                  <Card.Text className="balance-amount">${totalBalance}</Card.Text>
+                </Card>
               </motion.div>
             </Col>
           </Row>
-
-          {/* Donut Chart Section */}
-          <Row>
-            <Col md={12}>
-              <DonutChart expenses={expenses} />
-            </Col>
-          </Row>
-
-          {/* News Section */}
-          <div className="news-section">
-            <h2>Latest News</h2>
-            <Row>
-              <Col md={4}>
-                <NewsCard topic="personal-finance" image="/images/News/finance.jpg" title="Financial Freedom" description="Unlock financial success." />
-              </Col>
-            </Row>
-          </div>
         </Col>
       </Row>
     </Container>
