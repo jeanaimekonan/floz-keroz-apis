@@ -24,7 +24,7 @@ function LineChart() {
       return items.reduce((acc, item) => {
         const date = new Date(item.date);
         // Utiliser uniquement le mois et l'année pour le groupement
-        const monthYear = new Date(date.getFullYear(), date.getMonth(), 1); 
+        const monthYear = new Date(date.getFullYear(), date.getMonth(), 1);
         if (!acc[monthYear]) {
           acc[monthYear] = 0;
         }
@@ -36,23 +36,22 @@ function LineChart() {
     const groupedIncomes = groupByMonth(incomes);
     const groupedExpenses = groupByMonth(expenses);
 
-    // Tri des mois par ordre chronologique
-    const months = [...new Set([...Object.keys(groupedIncomes), ...Object.keys(groupedExpenses)])].sort((a, b) => {
-      const dateA = new Date(a);
-      const dateB = new Date(b);
-      return dateA - dateB;
+    // Définir tous les mois de l'année (Janvier à Décembre)
+    const allMonths = Array.from({ length: 12 }, (_, index) => {
+      const date = new Date();
+      date.setMonth(index);
+      return new Date(date.getFullYear(), index, 1); // Premier jour de chaque mois
     });
 
-    const savingsData = months.map((month) => {
+    const savingsData = allMonths.map((month) => {
       const income = groupedIncomes[month] || 0;
       const expense = groupedExpenses[month] || 0;
       return income - expense;
     });
 
     // Formatage des mois pour l'axe X
-    const formattedMonths = months.map(month => {
-      const date = new Date(month);
-      return date.toLocaleString('default', { month: 'short', year: 'numeric' });
+    const formattedMonths = allMonths.map(month => {
+      return month.toLocaleString('default', { month: 'short', year: 'numeric' });
     });
 
     return { savingsData, formattedMonths };
