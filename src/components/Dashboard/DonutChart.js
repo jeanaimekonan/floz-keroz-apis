@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChart = ({ data, title }) => {
   // Palette de couleurs sobres et modernes
-  const colors = ["#A6AEBF", "#C5D3E8", "#D0E8C5", "#FFF8DE"];
+  const colors = ["#071952", "#0B666A", "#35A29F", "#78B3CE"];
   const hoverColors = colors.map((color) => `${color}CC`); // Version transparente pour le hover
 
   // Préparer les données pour Chart.js
