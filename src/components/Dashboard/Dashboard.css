@@ -1,23 +1,47 @@
 .main-content {
-    padding: 20px;
-  }
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
 
+/* Cards for balances */
+.balance-card {
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  background-color: #ffffff;
+}
 
-/* Media query for iPad screens (between 577px and 768px) */
+.balance-amount {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Responsive styles */
 @media (min-width: 577px) and (max-width: 768px) {
-
   .main-content {
     padding: 10px;
   }
-  
+
+  .balance-amount {
+    font-size: 1.5rem;
+  }
 }
 
-
 @media (max-width: 576px) {
-    
-    .main-content {
-      padding: 10px;
-    }
-    
+  .main-content {
+    padding: 10px;
   }
-  
+
+  .balance-amount {
+    font-size: 1.3rem;
+  }
+}
+
+/* Donut chart container */
+.donut-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}

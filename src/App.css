@@ -3,7 +3,7 @@
 :root {
   --primary-color: #000758;
   --hover-color: #000D9E;
-  --secondary-color: #40E0D0;
+  --secondary-color: #30968c;
   --secondary-hover-color: #31AFA3;
   --background-color: #F4F4F4;
   --input: #DADADA;
@@ -12,9 +12,9 @@
   --link-dark: #B2621C;
   --link-dark-hover: #E67E22;
   --text-color: #333333;
-  --warning-color: #FF6B6B;
-  --warning-hover-color: #CB5353;
-  --edit-color: #93f9b8;
+  --warning-color: #dd1b1b;
+  --warning-hover-color: #dd5050;
+  --edit-color: #60acb8;
   --edit-hover-color: #65AF80;
   --page-color: #666;
   --page-hover-color: #333;

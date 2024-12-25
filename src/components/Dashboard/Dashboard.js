@@ -1,141 +1,100 @@
-// Dashboard.js
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import SidebarNav from '../SidebarNav/SidebarNav';
-import BreadcrumbAndProfile from '../BreadcrumbAndProfile/BreadcrumbAndProfile';
-import InfoCard from '../InfoCard/InfoCard';
-import NewsCard from '../NewsCard/NewsCard'; // Update the import path
-import './Dashboard.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import SidebarNav from "../SidebarNav/SidebarNav";
+import BreadcrumbAndProfile from "../BreadcrumbAndProfile/BreadcrumbAndProfile";
+import DonutChart from "./DonutChart";
+import "./Dashboard.css";
+import { motion } from "framer-motion";
+import LineChart from "./LineChart"; // Importez le composant LineChart
 
-function Dashboard({ totalIncomes, totalExpenses }) {
-  // Calculate the total financial data
-  const total = totalIncomes + totalExpenses;
+function Dashboard({ totalIncomes, totalExpenses, incomes, expenses }) {
+  // Regrouper les données par catégorie
+  const expenseData = expenses.reduce((acc, expense) => {
+    acc[expense.category] = (acc[expense.category] || 0) + parseFloat(expense.amount);
+    return acc;
+  }, {});
 
-  // Function to reload the page
-  const handleReload = () => {
-    window.location.reload();
-  };
+  const incomeData = incomes.reduce((acc, income) => {
+    acc[income.category] = (acc[income.category] || 0) + parseFloat(income.amount);
+    return acc;
+  }, {});
+
+  // Calculer les épargnes mensuelles (totalIncomes - totalExpenses)
+  const savingsData = [
+    10, 20, 30, 42, 51, 82, 31, 59, 61, 73, 91, 58, // Par défaut, remplacez par vos calculs si nécessaire
+  ];
+
+  const totalBalance = totalIncomes - totalExpenses;
 
   return (
-<Container fluid>
-  <Row>
-    <Col md={2} className="sidebar">
-      <SidebarNav />
-    </Col>
-    <Col md={10} className="main-content main">
-      <BreadcrumbAndProfile 
-        username="Mr. French Pitbull" 
-        role="Freelancer React Developer" 
-        pageTitle="Dashboard"
-        breadcrumbItems={[
-          { name: 'Dashboard', path: '/dashboard', active: true },
-          { name: 'Welcome', path: '/welcome', active: true }
-        ]}
-      />
-
-      {/* Row for the three buttons */}
-      <Row className="mb-3">
-        <Col md={4}>
-          <Button onClick={handleReload} className="secondary-button w-50">
-            <FontAwesomeIcon icon={faRotateRight} className="icon-left"/>Reload
-          </Button>
+    <Container fluid>
+      <Row>
+        <Col md={2} className="sidebar">
+          <SidebarNav />
         </Col>
-      </Row>
+        <Col md={10} className="main-content">
+          <BreadcrumbAndProfile
+            username="Mr. French Pitbull"
+            role="Freelancer React Developer"
+            pageTitle="Dashboard"
+            breadcrumbItems={[{ name: "Dashboard", path: "/dashboard", active: true }]}
+          />
 
-      {/* Row for the Total, Incomes, and Expenses */}
-      <Row className="mb-3">
-      <Col md={12}>
-      <motion.div
-      initial={{ opacity: 0, y: 20 }} // Initial state: transparent and slightly down
-      animate={{ opacity: 1, y: 0 }} // Animate to: fully opaque and original position
-      transition={{ duration: 0.5 }} // Animation duration: 0.5 seconds
-      >
-      <InfoCard 
-        title="Total" 
-        value={`$${total}`} 
-        linkText="View details" 
-        linkTo="/dashboard"
-      />
-      </motion.div>
-      </Col>
-    </Row>
+          {/* LineChart pour l'épargne */}
+          <Row className="my-4">
+            <Col>
+              <motion.div whileHover={{ scale: 1 }}>
+                <Card className="shadow-sm p-3">
+                  <Card.Title className="text-center">Évolution de l'Épargne</Card.Title>
+                  <LineChart savingsData={savingsData} />
+                </Card>
+              </motion.div>
+            </Col>
+          </Row>
 
-      
-    <Row>
-  <Col md={6}>
-    <motion.div
-      initial={{ opacity: 0, y: 20 }} // Start from slightly below and transparent
-      animate={{ opacity: 1, y: 0 }} // Animate to fully visible and original position
-      transition={{ duration: 0.5, delay: 0.2 }} // Delay the animation of the first card
-    >
-      <InfoCard
-        title="Incomes"
-        value={`$${totalIncomes}`}
-        linkText="Add or manage your Income"
-        linkTo="/incomes"
-      />
-    </motion.div>
-  </Col>
-  <Col md={6}>
-    <motion.div
-      initial={{ opacity: 0, y: 20 }} // Start from slightly below and transparent
-      animate={{ opacity: 1, y: 0 }} // Animate to fully visible and original position
-      transition={{ duration: 0.5, delay: 0.4 }} // Delay the animation of the second card a bit more
-    >
-      <InfoCard
-        title="Expenses"
-        value={`$${totalExpenses}`}
-        linkText="Add or manage your expenses"
-        linkTo="/expenses"
-      />
-    </motion.div>
-  </Col>
-</Row>
+          {/* Diagrammes Donut */}
+          <Row className="my-4 text-center">
+            <Col md={6}>
+              <DonutChart data={expenseData} title="Répartition des Dépenses" />
+            </Col>
+            <Col md={6}>
+              <DonutChart data={incomeData} title="Répartition des Revenus" />
+            </Col>
+          </Row>
 
+          
 
-         {/* Section for news cards */}
-         <div className="news-section">
-            <h2 className="news-section-title">Latest News</h2>
-            <div className="news-cards">
-              {/* Custom content for each topic */}
-              <Row>
-  <Col md={4}>
-    <NewsCard
-      topic="personal-finance"
-      image={`${process.env.PUBLIC_URL}/images/News/finance.jpg`}
-      alt="personal finance"
-      title="Unlocking Financial Freedom: Your Guide to Smart Money Moves"
-      description="Discover the secrets to financial success! From savvy investing strategies to practical budgeting tips, empower yourself to achieve your financial dreams and live life on your terms."
-      className="news-card" // Add custom class
-    />
-  </Col>
-  <Col md={4}>
-    <NewsCard
-      topic="freelancing"
-      image={`${process.env.PUBLIC_URL}/images/News/freelancing.jpg`}
-      alt="freelancing"
-      title="Thriving in the Gig Economy: Insider Tips for Freelancers"
-      description="Join the booming world of freelancing! Get insider insights, expert advice, and actionable tips to excel in the gig economy. From finding lucrative gigs to mastering time management, embark on your journey to freelancing success."
-      className="news-card" // Add custom class
-    />
-  </Col>
-  <Col md={4}>
-    <NewsCard
-      topic="budgeting"
-      image={`${process.env.PUBLIC_URL}/images/News/budgeting.jpg`}
-      alt="budgeting"
-      title="Mastering Your Money: The Art of Stress-Free Budgeting"
-      description="Take control of your finances and transform your life! Learn the art of stress-free budgeting, streamline your expenses, and achieve financial peace of mind. Say goodbye to money worries and hello to a brighter financial future!"
-      className="news-card" // Add custom class
-    />
-  </Col>
-</Row>
-
-            </div>
-          </div>
+          {/* Soldes */}
+          <Row className="my-4">
+            <Col md={4}>
+              <motion.div whileHover={{ scale: 1.05 }} className="balance-card">
+                <Card className="shadow-sm text-center p-3 balance-card">
+                  <Card.Title>Total Revenus</Card.Title>
+                  <Card.Text className="balance-amount">${totalIncomes}</Card.Text>
+                </Card>
+              </motion.div>
+            </Col>
+            <Col md={4}>
+              <motion.div whileHover={{ scale: 1.05 }} className="balance-card">
+                <Card className="shadow-sm text-center p-3 balance-card">
+                  <Card.Title>Total Dépenses</Card.Title>
+                  <Card.Text className="balance-amount">${totalExpenses}</Card.Text>
+                </Card>
+              </motion.div>
+            </Col>
+            <Col md={4}>
+              <motion.div whileHover={{ scale: 1.05 }} className="balance-card">
+                <Card
+                  className={`shadow-sm text-center p-3 balance-card ${
+                    totalBalance >= 0 ? "text-success" : "text-danger"
+                  }`}
+                >
+                  <Card.Title>Solde Total</Card.Title>
+                  <Card.Text className="balance-amount">${totalBalance}</Card.Text>
+                </Card>
+              </motion.div>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
