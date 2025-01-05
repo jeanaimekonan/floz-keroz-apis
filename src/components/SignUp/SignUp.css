@@ -1,0 +1,74 @@
+/* SignUp.css */
+.signup {
+    background-image: linear-gradient(to right, var(--primary-color), var(--hover-color));
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .signup-container {
+    padding: 2rem;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .input-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 10px;
+    color: var(--primary-color);
+    z-index: 10;
+    margin-right: 5px;
+  }
+  
+  .form-control {
+    padding-left: 30px;
+    height: 48px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+  }
+  
+  .btn-fullwidth, .btn-login {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    border: 2px solid var(--primary-color);
+    padding: 12px 24px;
+  }
+  
+  .text-center {
+    margin-top: 2rem;
+  }
+  
+  .bold-text {
+    font-weight: bold;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+  }
+  
+  .toggle-password {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
